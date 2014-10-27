@@ -38,18 +38,18 @@ class Program
 {
     static void Main()
     {
-        var numeros = new[] { 1, 2, 3, 4, 5, 6 };
-        var quadrados = _.map(numeros, x => x * x);         // numeros.map(x => x * x);          //
-        var pares     = _.filter(numeros, x => x % 2 == 0); // numeros.filter(x => x % 2 == 0);  //
+        var numeros   = Enumerable.Range(1, 6);
+        var pares     = _.filter(x => x % 2 == 0, numeros); // numeros.filter(x => x % 2 == 0);  //
+        var quadrados = _.map(x => x * x, numeros);         // numeros.map(x => x * x);          //
 
-        foreach (var q in quadrados)
-        {
-            Console.WriteLine(q);
-        }
+        print(pares);
+        print(quadrados);
+    }
 
-        foreach (var p in pares)
-        {
-            Console.WriteLine(p);
-        }
+    static void print<T>(IEnumerable<T> lista)
+    {
+        Console.Write("{");
+        foreach (var item in lista) { Console.Write("{0}, ", item); }
+        Console.WriteLine("}");
     }
 }
