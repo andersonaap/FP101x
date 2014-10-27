@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+define map and filter in terms of foldr
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 

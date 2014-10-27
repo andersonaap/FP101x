@@ -1,4 +1,6 @@
-﻿
+﻿(*
+define map and filter in terms of foldr
+*)
 
 let map    f ys = List.foldBack (fun x xs -> (f x)::xs )                  ys []
 let filter f ys = List.foldBack (fun x xs -> if (f x) then x::xs else xs) ys []
