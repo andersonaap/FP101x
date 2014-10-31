@@ -21,7 +21,7 @@ given limit. For example:
 > perfects 500
 [6,28,496]
 -}
---perfects   :: Int -> [Int]
+perfects   :: Int -> [Int]
 perfects n = [x | x <- [1..n], x == sum (factors x)]
   where factors m = [x | x <- [1..m - 1], m `mod` x == 0]
 
@@ -29,6 +29,7 @@ perfects n = [x | x <- [1..n], x == sum (factors x)]
 (3)The scalar product of two lists of integers xs and ys of
 length n is give by the sum of the products of the
 corresponding integers:
+sum i=0..n−1 (xsi ∗ ysi)
 Using a list comprehension, define a function that
 returns the scalar product of two lists.
 -}
