@@ -2,17 +2,19 @@
 define map and filter in terms of foldr
 -}
 
-map'    f = foldr (\x xs -> f (x:xs)) []
+map' :: (a -> b) -> [a] -> [b]
+map'    f = foldr (\x xs -> f x:xs) []
+
+filter' :: (a -> Bool) -> [a] -> [a]
 filter' f = foldr (\x xs -> if f x then x:xs else xs) []
 
 
 map'' f    = foldr g []
-  where g x xs = f (x:xs)
+  where g x xs = f x:xs
 
 filter'' f = foldr g []
   where g  x xs | f x       = x:xs
                 | otherwise = xs
-
 
 
 
