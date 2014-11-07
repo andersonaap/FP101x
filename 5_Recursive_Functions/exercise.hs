@@ -34,7 +34,7 @@ Select the nth element of a list:
 (!!!)         :: [a] -> Int -> a
 []     !!! _  =  error "Index too large"
 (x:_)  !!! 0  =  x
-(x:xs) !!! n  =  xs !!! (n-1)
+(_:xs) !!! n  =  xs !!! (n-1)
 
 {-
 elem :: Eq a ⇒ a → [a] → Bool
