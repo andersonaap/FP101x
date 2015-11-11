@@ -6,7 +6,7 @@
 --    dec2int' [] _ = 0
 --    dec2int' ys b = last ys * 10 ^ b + dec2int' (init ys) (b + 1)
 
--- C
+-- c
 --dec2int xs = foldl (\acc y -> 10 * acc + y) 0 xs
 
 
@@ -31,14 +31,71 @@
 -- a
 --uncurry f = \(x, y) -> f x y
 
+
+
 -- #11
-import Data.Char
+--import Prelude hiding (map)
+--import Prelude hiding (iterate)
 
-unfold :: (b -> Bool) -> (b -> a) -> (b -> b) -> b -> [a]
-unfold p h t x
-  | p x = []
-  | otherwise = h x : unfold p h t (t x)
+--unfold :: (b -> Bool) -> (b -> a) -> (b -> b) -> b -> [a]
+--unfold p h t x
+--  | p x = []
+--  | otherwise = h x : unfold p h t (t x)
+
+--chop8' [] = []
+--chop8' bits = take 8 bits : chop8' (drop 8 bits)
+-- b
+--chop8 = unfold null (take 8) (drop 8) 
+
+
+-- #12
+-- c
+--map :: (a -> b) -> [a] -> [b]
+--map f = unfold null (f . head) tail
+
+
+-- #13
+-- a
+--iterate :: (a -> a) -> a -> [a]
+--iterate f = unfold (const False) id f
+
+
+-- #14
+-- d
+
+-- #15
+-- d
+
+-- #16
+-- c
 
 
 
-main = print $ unfold (\a -> a >= 10) (\a -> chr (a + 65)) (\t -> t + 1) 0
+
+
+main = do 
+  -- print $ chop8 [0,0,0,0,1,1,1,1,0,1,0,1,0,1,0,1]
+  -- print $ map (^2) [2..7]
+  -- print $ take 8 $ iterate' (`div`2) 1024
+  
+  print "fim"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
