@@ -28,12 +28,6 @@ parse :: Parser a -> String -> [(a, String)]
 parse p inp = p inp
 
 
---p :: Parser (Char, Char)
---p = do x <- item
---       item
---       Prelude.return (x,x)
-
-
 
 main = do
   print "hi"
