@@ -45,10 +45,10 @@ natToInteger (Succ n) = 1 + natToInteger n
 
 -- #1
 integerToNat :: Integer -> Nat
-ex1 = (integerToNat 0, integerToNat 1, integerToNat 4)
+--ex1 = (integerToNat 0, integerToNat 1, integerToNat 4)
 
---integerToNat 0 = Zero
---integerToNat n = Succ (integerToNat (n-1))
+integerToNat 0 = Zero
+integerToNat n = Succ (integerToNat (n-1))
 
 -- S
 --integerToNat 0 = Zero
@@ -70,12 +70,50 @@ ex1 = (integerToNat 0, integerToNat 1, integerToNat 4)
 --integerToNat (n+1) = let m = integerToNat n in Succ m
 --integerToNat 0 = Zero
 
---imntegerToNat = head . m
+--integerToNat = head . m
 --  where {
 --        ; m 0 = [0]
 --        ; m (n + 1) = [sum [x | x <- (1: m n)]]
 --        }
 
-imntegerToNat = \n -> genericLength [c | shown n, isDigit c]
+--integerToNat = \n -> genericLength [c | shown n, isDigit c]
+
+
+add :: Nat -> Nat -> Nat
+ex2 = (Zero `add` Zero
+     , Zero `add` (Succ Zero)
+     , Zero `add` integerToNat 2
+     , integerToNat 3 `add` integerToNat 2)
+
+add Zero     n    = n
+add (Succ m) n    = m `add` (Succ n)
+
+
+-- S
+--add Zero n     = n
+--add (Succ m) n = Succ (add n m)
+
+-- S
+--add (Succ m) n = Succ (add n m)
+--add Zero n     = n
+
+-- S
+--add (Succ m) n = Succ (add n m)
+--add Zero n     = n
+
+-- N
+-- N
+-- N
+-- N
+
+-- S
+--add n Zero     = n
+--add n (Succ m) = Succ (add m n)
+
+-- S
+--add n (Succ m) = Succ (add m n)
+--add n Zero     = n
+
+
 
 main = print "main"
