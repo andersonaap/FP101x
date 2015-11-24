@@ -78,7 +78,7 @@ integerToNat n = Succ (integerToNat (n-1))
 
 --integerToNat = \n -> genericLength [c | shown n, isDigit c]
 
-
+-- #2 - a, b, c, h, i
 add :: Nat -> Nat -> Nat
 ex2 = (Zero `add` Zero
      , Zero `add` (Succ Zero)
@@ -88,7 +88,6 @@ ex2 = (Zero `add` Zero
 add Zero     n    = n
 add (Succ m) n    = m `add` (Succ n)
 
-
 -- S
 --add Zero n     = n
 --add (Succ m) n = Succ (add n m)
@@ -113,6 +112,32 @@ add (Succ m) n    = m `add` (Succ n)
 -- S
 --add n (Succ m) = Succ (add m n)
 --add n Zero     = n
+
+
+-- #3 - b
+mult :: Nat -> Nat -> Nat
+ex3 = (Zero `mult` (Succ (Succ Zero))
+     , integerToNat 3 `mult` Zero
+     , (Succ Zero) `mult` integerToNat 2
+     , integerToNat 3 `mult` integerToNat 2)
+
+--mult Zero     _ = Zero
+--mult (Succ m) n = n `add` (m `mult` n)
+
+
+--   4 * 3 
+-- = 3 + (3 * 3)
+-- = 3 + (3 + (2 * 3))
+-- = 3 + (3 + (3 + (1 * 3)))
+-- = 3 + (3 + (3 + (3)))
+-- = 3 + (3 + (6))
+-- = 3 + (9)
+-- = 12
+
+mult m Zero = Zero
+mult m (Succ n) = add m (mult m n)
+
+
 
 
 
