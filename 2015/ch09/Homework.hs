@@ -153,7 +153,7 @@ mult (Succ m) n = n `add` (m `mult` n)
 
 data Tree = Leaf Integer
           | Node Tree Tree
-
+    deriving (Show)
 
 
 leaves :: Tree -> Int
@@ -190,19 +190,29 @@ t2 = Node
           (Leaf 15)
       )
 
--- #62
+-- #62 - a
 balance :: [Integer] -> Tree
 
 halve xs = splitAt (length xs `div` 2) xs
-balance (x:[]) = Leaf x
-leaves xs = Node (balance ys) (balance zs)
+balance [x] = Leaf x
+balance xs = Node (balance ys) (balance zs)
   where (ys, zs) = halve xs
 
 
+-- #7 - 
+data Expr = Add Expr Expr | Val Int
+     deriving (Show)
 
+-- Add (Val 1) (Val 2)
+-- Add (Int -> Expr) (Int -> Expr)
+-- (Int -> Expr) -> (Int -> Expr) -> Expr
 
 
 main = do
   --print $ (occurs 10 t6, occurs 7 t6, occurs 6 t6, occurs 13 t6)
   print $ (leaves (Leaf 0), leaves t1, leaves t2)
   print $ (balanced (Leaf 0), balanced t1, balanced t2)
+  print $ balanced (balance [1..6])
+  print $ balance [1..8]
+  print $ Add (Val 1) (Val 2)
+
