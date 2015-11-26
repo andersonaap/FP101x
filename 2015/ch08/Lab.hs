@@ -93,5 +93,3 @@ funkyMap f g (x1:x2:xs) = f x1 : g x2 : funkyMap f g xs
 -- #18 - a
 -- #19 - b
 -- #20 - ?
-
-

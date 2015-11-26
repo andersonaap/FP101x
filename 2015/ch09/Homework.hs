@@ -10,10 +10,6 @@ data Nat = Zero
 
 -- #0 - a, b, d, g
 natToInteger :: Nat -> Integer
---ex0_1 = natToInteger Zero
---ex0_2 = natToInteger (Succ Zero)
---ex0_3 = natToInteger (Succ (Succ (Succ (Succ Zero))))
---ex0 = print (ex0_1, ex0_2, ex0_3)
 
 -- S
 --natToInteger Zero = 0
@@ -45,7 +41,6 @@ natToInteger (Succ n) = 1 + natToInteger n
 
 -- #1
 integerToNat :: Integer -> Nat
---ex1 = (integerToNat 0, integerToNat 1, integerToNat 4)
 
 integerToNat 0 = Zero
 integerToNat n = Succ (integerToNat (n-1))
@@ -80,11 +75,6 @@ integerToNat n = Succ (integerToNat (n-1))
 
 -- #2 - a, b, c, h, i
 add :: Nat -> Nat -> Nat
-ex2 = (Zero `add` Zero
-     , Zero `add` (Succ Zero)
-     , Zero `add` integerToNat 2
-     , integerToNat 3 `add` integerToNat 2)
-
 add Zero     n    = n
 add (Succ m) n    = m `add` (Succ n)
 
@@ -116,29 +106,95 @@ add (Succ m) n    = m `add` (Succ n)
 
 -- #3 - b
 mult :: Nat -> Nat -> Nat
-ex3 = (Zero `mult` (Succ (Succ Zero))
-     , integerToNat 3 `mult` Zero
-     , (Succ Zero) `mult` integerToNat 2
-     , integerToNat 3 `mult` integerToNat 2)
+mult Zero     _ = Zero
+mult (Succ m) n = n `add` (m `mult` n)
 
---mult Zero     _ = Zero
---mult (Succ m) n = n `add` (m `mult` n)
+--mult m Zero = Zero
+--mult m (Succ n) = add m (mult m n)
 
 
---   4 * 3 
--- = 3 + (3 * 3)
--- = 3 + (3 + (2 * 3))
--- = 3 + (3 + (3 + (1 * 3)))
--- = 3 + (3 + (3 + (3)))
--- = 3 + (3 + (6))
--- = 3 + (9)
--- = 12
+-- #4 - a, e
+--data Tree = Leaf Integer
+--          | Node Tree Integer Tree
 
-mult m Zero = Zero
-mult m (Succ n) = add m (mult m n)
+--t1 = Node 
+--       (Node (Node (Leaf 1) 2 (Node (Leaf 3) 4 (Leaf 5))) 6 (Leaf 8)) 
+--       10
+--       (Node (Leaf 12) 14 (Leaf 15))
+
+--occurs :: Integer -> Tree -> Bool
+
+-- S
+--occurs m (Leaf n) = m == n
+--occurs m (Node l n r) 
+--  = case compare m n of
+--       LT -> occurs m l
+--       EQ -> True
+--       GT -> occurs m r
+
+-- N
+-- N
+-- N
+
+-- S
+--occurs m (Leaf n) = m == n
+--occurs m (Node l n r) 
+--  | m == n = True
+--  | m < n  = occurs m l
+--  | otherwise = occurs m r
+
+-- N
+-- N
+-- N
+
+
+
+-- #5
+
+data Tree = Leaf Integer
+          | Node Tree Tree
+
+
+
+leaves :: Tree -> Int
+leaves (Leaf _) = 1
+leaves (Node l r) = leaves l + leaves r
+
+balanced :: Tree -> Bool
+--balanced (Leaf _)   = True
+--balanced (Node l r) = (&& balanced r) . (&& balanced r) . (<= 1) . abs $ (sl - sr)
+--  where sl = leaves l
+--        sr = leaves r
+
+balanced (Leaf _)   = True
+balanced (Node l r) 
+  = abs (leaves l - leaves r) <= 1 && balanced l && balanced r
+
+t1 = Node 
+       (Node (Node (Leaf 1) (Node (Leaf 3) (Leaf 5))) (Leaf 8)) 
+       (Node (Leaf 12) (Leaf 15))
+
+t2 = Node 
+      (
+        Node 
+          (
+            Node 
+              (Leaf 3) 
+              (Leaf 5)
+          )
+        (Leaf 8)
+      ) 
+      (
+        Node 
+          (Leaf 12)
+          (Leaf 15)
+      )
 
 
 
 
 
-main = print "main"
+main = do
+  --print $ (occurs 10 t6, occurs 7 t6, occurs 6 t6, occurs 13 t6)
+  print $ (leaves (Leaf 0), leaves t1, leaves t2)
+  print $ (balanced (Leaf 0), balanced t1, balanced t2)
