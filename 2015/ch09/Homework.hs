@@ -190,6 +190,14 @@ t2 = Node
           (Leaf 15)
       )
 
+-- #62
+balance :: [Integer] -> Tree
+
+halve xs = splitAt (length xs `div` 2) xs
+balance (x:[]) = Leaf x
+leaves xs = Node (balance ys) (balance zs)
+  where (ys, zs) = halve xs
+
 
 
 
