@@ -207,12 +207,40 @@ data Expr = Add Expr Expr | Val Int
 -- Add (Int -> Expr) (Int -> Expr)
 -- (Int -> Expr) -> (Int -> Expr) -> Expr
 
+-- #8 - e
+
+-- #9 - b
+data Maybe9 a = Just9 a
+              | Nothing9
+              deriving (Show)
+
+instance Monad Maybe9 where
+  return x = Just9 x
+  -- (>>=) :: Maybe9 a -> (a -> Maybe9 b) -> Maybe9 b
+  Nothing9  >>= _ = Nothing9
+  (Just9 x) >>= f = f x
+
+sum9 :: Maybe9 Int -> Maybe9 Int -> Maybe9 Int
+sum9 x y = x >>= \a -> y >>= \b -> Just9 (a + b)
+
+
+
+-- #10 -- c
+
+-- #11 - 
+
+
+
+
 
 main = do
   --print $ (occurs 10 t6, occurs 7 t6, occurs 6 t6, occurs 13 t6)
-  print $ (leaves (Leaf 0), leaves t1, leaves t2)
-  print $ (balanced (Leaf 0), balanced t1, balanced t2)
-  print $ balanced (balance [1..6])
-  print $ balance [1..8]
-  print $ Add (Val 1) (Val 2)
-
+  --print $ (leaves (Leaf 0), leaves t1, leaves t2)
+  --print $ (balanced (Leaf 0), balanced t1, balanced t2)
+  --print $ balanced (balance [1..6])
+  --print $ balance [1..8]
+  --print $ Add (Val 1) (Val 2)
+  print "hi"
+  print $ (Nothing9 :: Maybe9 Int)
+  print $ sum9 (Just9 2) (Just9 3)
+  print $ sum9 (Just9 5) (Nothing9)
