@@ -1,6 +1,7 @@
 module Main (main) where
 import Data.List
 import Data.Char
+import Data.Foldable
 import Hugs.IOExts (unsafeCoerce)
 
 data Nat = Zero
@@ -221,16 +222,52 @@ instance Monad Maybe9 where
   (Just9 x) >>= f = f x
 
 sum9 :: Maybe9 Int -> Maybe9 Int -> Maybe9 Int
-sum9 x y = x >>= \a -> y >>= \b -> Just9 (a + b)
-
+sum9 x y = x >>= \a -> y >>= \b -> return (a + b)
 
 
 -- #10 -- c
+class Monad10 m where
+  return10  :: a -> m a
+  (>>>==) ::  m b -> (b -> m c) -> m c
 
--- #11 - 
+instance Monad10 [] where
+  return10 x = [x]
+  xs >>>== f = concat (map f xs) 
+
+instance Monad10 Maybe9 where
+  return10 x = Just9 x
+  Nothing9  >>>== _ = Nothing9
+  (Just9 x) >>>== f = f x
 
 
+-- #11 - a
+class Monoid11 a where
+  mempty11 :: a
+  (<<>>) :: a -> a -> a
 
+instance Monoid11 [a] where
+  mempty11 = []
+  (<<>>) = (++) 
+
+''
+-- #12 - d
+class Functor12 f where
+  fmap12 :: (a -> b) -> f a -> f b
+
+instance Functor12 Maybe9 where
+  fmap12 _ Nothing9 = Nothing9
+  fmap12 f (Just9 m) = Just9 (f m) 
+
+
+-- #13
+class (Functor12 f) => Foldable13 f where
+  fold13 :: (Monoid11 m) => f m -> m
+
+
+instance Foldabl13 [] where
+  fold13 (Functor12 f) =  
+
+    foldr :: (a - b - b) b - [a] - b
 
 
 main = do
@@ -241,6 +278,8 @@ main = do
   --print $ balance [1..8]
   --print $ Add (Val 1) (Val 2)
   print "hi"
-  print $ (Nothing9 :: Maybe9 Int)
-  print $ sum9 (Just9 2) (Just9 3)
-  print $ sum9 (Just9 5) (Nothing9)
+  print $ (sum9 (Just9 2) (Just9 3), sum9 (Just9 5) (Nothing9))
+  print $ [1..5] >>>== \m -> return10 (m^2)
+  print $ ((mempty11::[Int]), [1..5] <<>> [6..7])
+  print $ (fmap12 (^2) (Nothing9), fmap12 (^2) (Just9 3))
+
